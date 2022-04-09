@@ -14,6 +14,7 @@ import {
 import CheckBox from "react-native-check-box";
 import * as ImagePicker from "expo-image-picker";
 import UploadIcon from "../assets/upload.png";
+import CameraIcon from "../assets/camera.png"
 import BackIcon from "../assets/back.png";
 
 import FocusedStatusBar from "../components/FocusedStatusBar";
@@ -37,6 +38,21 @@ function DonateForm() {
       setImage(result.uri);
     }
   };
+    const launchCamera = async () => {
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+  
 
   return (
     <>
@@ -51,18 +67,27 @@ function DonateForm() {
             <View style={styles.header}>
               <Link to={{ screen: "HomePage" }} style={styles.backBtn}>
                 <Image source={BackIcon} />
-                <Text style={{ fontSize: 14 }}>Back</Text>
+                <Text style={{ fontSize: 14 }}>  Back</Text>
               </Link>
               <Text style={{ fontSize: 24 }}>Donation Detail</Text>
             </View>
-            <View style={styles.input_container}>
+            <View style={{flexDirection:"row",justifyContent:'space-around'}}>
               <TouchableOpacity
-                style={styles.upload_container}
+                style={styles.uploadImage_container}
                 onPress={pickImage}
               >
                 <Image source={UploadIcon} />
                 <Text style={{ fontSize: 11 }}>Upload Product Image</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.openCamera_container}
+                onPress={launchCamera}
+              >
+                <Image source={CameraIcon} />
+                <Text style={{ fontSize: 11, top:12 }}>Capture Product Image</Text>
+              </TouchableOpacity>
+              </View>
+              <View style={styles.input_container}>
               <TextInput
                 placeholder="Description"
                 style={styles.input}
@@ -108,12 +133,19 @@ const styles = StyleSheet.create({
   inner_container: {
     padding: 20,
   },
-  upload_container: {
+  uploadImage_container: {
     borderWidth: 3,
     borderStyle: "dashed",
     borderColor: "rgba(52, 53, 55, 0.34)",
     borderRadius: 1,
-    padding: 70,
+    padding: 10,
+  },
+  openCamera_container: {
+    borderWidth: 3,
+    borderStyle: "dashed",
+    borderColor: "rgba(52, 53, 55, 0.34)",
+    borderRadius: 1,
+    padding: 12,
   },
   input: {
     height: 100,
