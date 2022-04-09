@@ -37,7 +37,7 @@ const SelectRole = () => {
       <View style={styles.buttonsView1}>
         <TouchableOpacity
           activeOpacity={0}
-          onPress={() => navigation.push("Location")}
+          onPress={() => navigation.push("UploadProfileImage")}
         >
           <Image
             source={require("../assets/images/donate.png")}
@@ -51,7 +51,7 @@ const SelectRole = () => {
       <View style={styles.buttonsView2}>
         <TouchableOpacity
           activeOpacity={0}
-          onPress={() => navigation.push("Location")}
+          onPress={() => navigation.push("UploadProfileImage")}
         >
           <Image
             source={require("../assets/images/ngo.png")}
