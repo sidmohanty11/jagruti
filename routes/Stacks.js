@@ -8,7 +8,11 @@ import DonateForm from "../screens/DonateForm";
 import SelectRole from "../screens/SelectRole";
 import Location from "../screens/Location";
 import HomePage from "../screens/HomePage";
+import UserAccount from "../screens/UserAccount";
+import NgoHomePage from "../screens/NgoHomePage";
+import Events from "../screens/Events";
 import NGODetails from "../screens/NGODetails";
+import MyDonations from "../screens/MyDonations";
 
 const Stacks = () => {
   const Stack = createNativeStackNavigator();
@@ -27,8 +31,11 @@ const Stacks = () => {
         <Stack.Screen name="SelectRole" component={SelectRole} />
         <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="HomePage" component={HomePage} />
+        <Stack.Screen name="UserAccount" component={UserAccount} />
+        <Stack.Screen name="NgoHomePage" component={NgoHomePage} />
+        <Stack.Screen name="Events" component={Events} />
         <Stack.Screen name="NGODetails" component={NGODetails} />
-        <Stack.Screen name="#" component={Location} />
+        <Stack.Screen name="MyDonations" component={MyDonations} />
       </Stack.Navigator>
     </NavigationContainer>
   );

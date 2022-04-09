@@ -1,12 +1,15 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
-
+import { useNavigation } from "@react-navigation/native";
 const Card = ({ title, location, image }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.card_container}>
       <Image source={image} style={styles.img} />
       <View style={styles.details_container}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}
+          onPress={() => navigation.push("NGODetails")}
+        >{title}</Text>
         <Text style={styles.location}>{location}</Text>
       </View>
     </View>
