@@ -9,10 +9,10 @@ const Card_ngo = () => {
             </View>
             <View style={styles.txt_container}>
                 <View>
-                    <Text>Event Name : </Text>
+                    <Text>Header</Text>
                     <Text style={{
                         fontWeight: 'bold'
-                    }}>Cleaning Mahanadi Mahandi</Text>
+                    }}>sub-header</Text>
                 </View>
                 <View >
                     <Text>
