@@ -9,9 +9,19 @@ import {
 } from 'react-native'
 import React from 'react'
 import { useNavigation } from "@react-navigation/native";
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase-config';
 
 const UserAccount = () => {
     const navigation = useNavigation();
+
+    const handleLogOut = () => {
+        signOut(auth).then(() => {
+            navigation.push('Login')
+        }).catch((error) => {
+            alert(error.message)
+        });
+    }
     return (
         <View style={styles.container}>
             <View style={styles.info_container}>
@@ -30,7 +40,9 @@ const UserAccount = () => {
                 <TouchableOpacity style={[styles.box, { borderBottomWidth: 0 }]}>
                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>My Messages</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.box, { marginTop: 20, borderBottomWidth: 0 }]}>
+                <TouchableOpacity
+                    onPress={handleLogOut}
+                    style={[styles.box, { marginTop: 20, borderBottomWidth: 0 }]}>
                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Log Out</Text>
                 </TouchableOpacity>
             </View>
