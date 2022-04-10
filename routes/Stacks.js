@@ -21,7 +21,7 @@ const Stacks = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="NgoHomePage"
+        initialRouteName="SplashScreen"
         screenOptions={{
           headerShown: false,
         }}
@@ -38,7 +38,10 @@ const Stacks = () => {
         <Stack.Screen name="Events" component={Events} />
         <Stack.Screen name="NGODetails" component={NGODetails} />
         <Stack.Screen name="MyDonations" component={MyDonations} />
-        <Stack.Screen name="UploadProfileImage" component={UploadProfileImage} />
+        <Stack.Screen
+          name="UploadProfileImage"
+          component={UploadProfileImage}
+        />
         <Stack.Screen name="DonationDetails" component={DonationDetails} />
       </Stack.Navigator>
     </NavigationContainer>
