@@ -13,7 +13,6 @@ import NgoHomePage from "../screens/NgoHomePage";
 import Events from "../screens/Events";
 import NGODetails from "../screens/NGODetails";
 import MyDonations from "../screens/MyDonations";
-import UploadProfileImage from "../screens/UploadProfileImage"
 import DonationDetails from "../screens/DonationDetails";
 import UploadProfileImage from "../screens/UploadProfileImage";
 
@@ -22,7 +21,7 @@ const Stacks = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="NgoHomePage"
+        initialRouteName="SplashScreen"
         screenOptions={{
           headerShown: false,
         }}
@@ -41,10 +40,6 @@ const Stacks = () => {
         <Stack.Screen name="MyDonations" component={MyDonations} />
         <Stack.Screen name="UploadProfileImage" component={UploadProfileImage} />
         <Stack.Screen name="DonationDetails" component={DonationDetails} />
-        <Stack.Screen
-          name="UploadProfileImage"
-          component={UploadProfileImage}
-        />
       </Stack.Navigator>
     </NavigationContainer>
   );
