@@ -7,9 +7,12 @@ const Card = ({ title, location, image }) => {
     <View style={styles.card_container}>
       <Image source={image} style={styles.img} />
       <View style={styles.details_container}>
-        <Text style={styles.title}
+        <Text
+          style={styles.title}
           onPress={() => navigation.push("NGODetails")}
-        >{title}</Text>
+        >
+          {title}
+        </Text>
         <Text style={styles.location}>{location}</Text>
       </View>
     </View>

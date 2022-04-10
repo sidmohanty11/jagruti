@@ -4,6 +4,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import React, { useContext } from "react";
 import Card from "../components/Card";
@@ -11,10 +12,24 @@ import FocusedStatusBar from "../components/FocusedStatusBar";
 import { AntDesign } from "@expo/vector-icons";
 import { Link } from "@react-navigation/native";
 import User from "../components/User";
-import { UserContext } from "../App";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase-config";
 
 const HomePage = () => {
-  const { user } = useContext(UserContext);
+  const [data, setData] = React.useState([]);
+
+  React.useEffect(() => {
+    async function getData() {
+      let result = [];
+      const querySnapshot = await getDocs(collection(db, "ngos"));
+      querySnapshot.forEach((doc) => {
+        result.push({ ...doc.data(), id: doc.id });
+      });
+      setData(result);
+    }
+    getData();
+  }, []);
+
   return (
     <>
       <FocusedStatusBar
@@ -50,28 +65,19 @@ const HomePage = () => {
           <AntDesign name="home" size={32} color="green" />
           <Text style={styles.txt}>Ngo's near me</Text>
         </View>
-        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-          <Card
-            title="NGO NAME"
-            location="NGO LOCATION"
-            image={require("../assets/logo.png")}
-          />
-          <Card
-            title="NGO NAME"
-            location="NGO LOCATION"
-            image={require("../assets/logo.png")}
-          />
-          <Card
-            title="NGO NAME"
-            location="NGO LOCATION"
-            image={require("../assets/logo.png")}
-          />
-          <Card
-            title="NGO NAME"
-            location="NGO LOCATION"
-            image={require("../assets/logo.png")}
-          />
-        </ScrollView>
+        {/* <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}> */}
+        <FlatList
+          keyExtractor={(item) => item.id}
+          data={data}
+          renderItem={({ item }) => (
+            <Card
+              title={item.title}
+              location={item.location}
+              image={item.image}
+            />
+          )}
+        />
+        {/* </ScrollView> */}
       </View>
     </>
   );
