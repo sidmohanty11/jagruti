@@ -12,15 +12,23 @@ import { useNavigation } from "@react-navigation/native";
 import { collection, addDoc } from "firebase/firestore";
 import { UserContext } from "../App";
 import * as LocationGPS from "expo-location";
+import { db } from "../firebase-config";
 
 const Location = ({ onSearch }) => {
   const [location, setLocation] = useState(null);
   const navigation = useNavigation();
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
-  const handleLocation = () => {
+  const handleLocation = async () => {
     setUser((prevState) => ({ ...prevState, location }));
-    navigation.push("HomePage");
+    try {
+      const docRef = await addDoc(collection(db, "users"), user);
+      console.log("Document written with ID: ", docRef.id);
+      navigation.push("HomePage")
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+    navigation.push("HomePage")
   };
 
   useEffect(() => {
@@ -34,6 +42,11 @@ const Location = ({ onSearch }) => {
       let location = await LocationGPS.getCurrentPositionAsync({});
       console.log(location);
       setLocation(location);
+      setUser((prevState) => ({
+        ...prevState,
+        location
+      }))
+      console.log(user)
     })();
   }, []);
 

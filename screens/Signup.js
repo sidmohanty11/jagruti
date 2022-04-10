@@ -32,7 +32,12 @@ function Signup() {
     createUserWithEmailAndPassword(auth, data.user.email, data.user.password)
       .then((userCredentials) => {
         const user = userCredentials.user
-        //console.log(data.user)
+        console.log("displaying user", user.uid)
+        data.setUser((prevState) => ({
+          ...prevState,
+          uid: user.uid
+        }))
+        console.log(data.user)
         navigation.push("SelectRole")
       })
       .catch((err) => {

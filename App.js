@@ -8,12 +8,13 @@ import { firebaseConfig } from './firebase-config';
 export const UserContext = createContext()
 const App = () => {
   const [user, setUser] = useState({
+    uid: '', // unique id of user given by firebase
     name: '',
     email: '',
     password: '',
     phone: '',
     role: '',   //single_user(if user log in) or ngo(if ngo log in)
-    location: '',
+    location: {},
     isNgo: false,
     photoUrl: ''
   })

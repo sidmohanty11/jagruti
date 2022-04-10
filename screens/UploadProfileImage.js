@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -18,7 +18,19 @@ import { UserContext } from "../App";
 
 function UploadProfileImage() {
   const navigation = useNavigation();
+  const [isSelected, setIsSelected] = useState();
+  const [image, setImage] = useState(null);
   const data = useContext(UserContext);
+
+  useEffect(() => {
+    data.setUser((prevState) => ({
+      ...prevState,
+      photoUrl: image,
+    }))
+    console.log("use effect called")
+    console.log(data.user)
+  }, [image])
+
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -35,11 +47,12 @@ function UploadProfileImage() {
       const img = await fetch(result.uri); // get the image as string
       const bytes = await img.blob(); // convert string to bytes
       await uploadBytes(ref_con, bytes);
-      const url = await getDownloadURL(ref_con);
+      setImage(await getDownloadURL(ref_con))
+      // setImage(url)
       data.setUser((prevState) => ({
         ...prevState,
-        photo_url: url,
-      }));
+        photoUrl: image,
+      }))
     }
   };
 
@@ -59,9 +72,10 @@ function UploadProfileImage() {
       const bytes = await img.blob(); // convert string to bytes
       await uploadBytes(ref_con, bytes);
       const url = await getDownloadURL(ref_con);
+      setImage(url)
       data.setUser((prevState) => ({
         ...prevState,
-        photo_url: url,
+        photoUrl: image,
       }));
     }
   };
