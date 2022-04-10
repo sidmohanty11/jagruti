@@ -9,37 +9,40 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   TouchableOpacity,
-  Alert
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import FocusedStatusBar from "../components/FocusedStatusBar";
-import { auth } from '../firebase-config'
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { UserContext } from '../App'
+import { auth } from "../firebase-config";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { UserContext } from "../App";
 
 function Signup() {
   const navigation = useNavigation();
 
   // const [email, setEmail] = useState('')
   // const [password, setPassword] = useState('')
-  const data = useContext(UserContext)
+  const data = useContext(UserContext);
 
   const handleCreateAccount = () => {
     createUserWithEmailAndPassword(auth, data.user.email, data.user.password)
       .then((userCredentials) => {
-        const user = userCredentials.user
-        data.setUsers([...data.users, data.user])
-        navigation.push("SelectRole")
+        const user = userCredentials.user;
+        data.setUsers([...data.users, data.user]);
+        navigation.push("SelectRole");
       })
       .catch((err) => {
-        console.log(err)
-        Alert.alert(err.message)
-      })
-  }
+        console.log(err);
+        Alert.alert(err.message);
+      });
+  };
 
   return (
     <>
-      {/* {console.log(data.user)} */}
       <FocusedStatusBar
         barStyle="dark-content"
         backgroundColor="transparent"
@@ -53,40 +56,48 @@ function Signup() {
           <View style={styles.input_container}>
             <TextInput
               value={data.user.name}
-              onChangeText={(text) => data.setUser(
-                prevState => ({
+              onChangeText={(text) =>
+                data.setUser((prevState) => ({
                   ...prevState,
-                  name: text
-                })
-              )}
-              placeholder="Name" style={styles.input} />
+                  name: text,
+                }))
+              }
+              placeholder="Name"
+              style={styles.input}
+            />
             <TextInput
               value={data.user.email}
-              onChangeText={(text) => data.setUser(
-                prevState => ({
+              onChangeText={(text) =>
+                data.setUser((prevState) => ({
                   ...prevState,
-                  email: text
-                })
-              )}
-              placeholder="Email-id" style={styles.input} />
+                  email: text,
+                }))
+              }
+              placeholder="Email-id"
+              style={styles.input}
+            />
             <TextInput
               value={data.user.password}
-              onChangeText={(text) => data.setUser(
-                prevState => ({
+              onChangeText={(text) =>
+                data.setUser((prevState) => ({
                   ...prevState,
-                  password: text
-                })
-              )}
-              placeholder="Password" style={styles.input} />
+                  password: text,
+                }))
+              }
+              placeholder="Password"
+              style={styles.input}
+            />
             <TextInput
               value={data.user.phone}
-              onChangeText={(text) => data.setUser(
-                prevState => ({
+              onChangeText={(text) =>
+                data.setUser((prevState) => ({
                   ...prevState,
-                  phone: text
-                })
-              )}
-              placeholder="Phone no." style={styles.input} />
+                  phone: text,
+                }))
+              }
+              placeholder="Phone no."
+              style={styles.input}
+            />
           </View>
           <View>
             <Text style={{ textAlign: "center", marginTop: 15 }}>Or</Text>
@@ -102,7 +113,7 @@ function Signup() {
             <TouchableOpacity
               onPress={handleCreateAccount}
               style={styles.btn}
-            // onPress={() => navigation.push("SelectRole")}
+              // onPress={() => navigation.push("SelectRole")}
             >
               <Text style={{ color: "white", textAlign: "center" }}>Next</Text>
             </TouchableOpacity>
