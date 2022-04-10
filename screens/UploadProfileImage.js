@@ -19,7 +19,6 @@ import { UserContext } from "../App";
 function UploadProfileImage() {
   const navigation = useNavigation();
   const data = useContext(UserContext);
-  const [image, setImage] = useState(null);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -31,16 +30,15 @@ function UploadProfileImage() {
 
     if (!result.cancelled) {
       const storage = getStorage(); // the storage
-      console.log(result);
       const ref_con = ref(storage, new Date().toISOString()); // how image is addresed inside storage
 
       const img = await fetch(result.uri); // get the image as string
       const bytes = await img.blob(); // convert string to bytes
       await uploadBytes(ref_con, bytes);
-      getDownloadURL(ref_con).then((res) => setImage(res));
+      const url = await getDownloadURL(ref_con);
       data.setUser((prevState) => ({
         ...prevState,
-        photo_url: image,
+        photo_url: url,
       }));
     }
   };
@@ -55,18 +53,21 @@ function UploadProfileImage() {
 
     if (!result.cancelled) {
       const storage = getStorage(); // the storage
-      console.log(result);
       const ref_con = ref(storage, new Date().toISOString()); // how image is addresed inside storage
 
       const img = await fetch(result.uri); // get the image as string
       const bytes = await img.blob(); // convert string to bytes
       await uploadBytes(ref_con, bytes);
-      getDownloadURL(ref_con).then((res) => setImage(res));
+      const url = await getDownloadURL(ref_con);
       data.setUser((prevState) => ({
         ...prevState,
-        photo_url: image,
+        photo_url: url,
       }));
     }
+  };
+
+  const handleSubmit = () => {
+    navigation.push("Location");
   };
 
   return (
@@ -101,10 +102,7 @@ function UploadProfileImage() {
           </TouchableOpacity>
         </View>
         <View style={styles.btn_container}>
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => navigation.push("Location")}
-          >
+          <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
             <Text style={{ color: "white", textAlign: "center" }}>Next</Text>
           </TouchableOpacity>
         </View>

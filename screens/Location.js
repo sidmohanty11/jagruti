@@ -6,12 +6,37 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import FocusedStatusBar from "../components/FocusedStatusBar";
 import { useNavigation } from "@react-navigation/native";
 import { collection, addDoc } from "firebase/firestore";
+import { UserContext } from "../App";
+import * as LocationGPS from "expo-location";
+
 const Location = ({ onSearch }) => {
+  const [location, setLocation] = useState(null);
   const navigation = useNavigation();
+  const { setUser } = useContext(UserContext);
+
+  const handleLocation = () => {
+    setUser((prevState) => ({ ...prevState, location }));
+    navigation.push("HomePage");
+  };
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await LocationGPS.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      let location = await LocationGPS.getCurrentPositionAsync({});
+      console.log(location);
+      setLocation(location);
+    })();
+  }, []);
+
   return (
     <>
       <FocusedStatusBar
@@ -47,10 +72,7 @@ const Location = ({ onSearch }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.btn_container}>
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => navigation.push("HomePage")}
-        >
+        <TouchableOpacity style={styles.btn} onPress={handleLocation}>
           <Text style={{ color: "white", textAlign: "center" }}>Next</Text>
         </TouchableOpacity>
       </View>
