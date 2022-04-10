@@ -23,6 +23,8 @@ const SelectRole = () => {
       })
     )
     data.setUsers([...data.users, data.user])
+    // data.setUsers([...data.users, data.user])
+    console.log(data.user)
     navigation.push('UploadProfileImage')
   }
 
@@ -34,7 +36,8 @@ const SelectRole = () => {
         isNgo: true
       })
     )
-    data.setUsers([...data.users, data.user])
+    // data.setUsers([...data.users, data.user])
+    console.log(data.user)
     navigation.push('NgoHomePage')
   }
   return (

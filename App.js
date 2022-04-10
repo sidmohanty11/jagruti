@@ -7,7 +7,6 @@ import { firebaseConfig } from './firebase-config';
 
 export const UserContext = createContext()
 const App = () => {
-  const [users, setUsers] = useState([])
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -20,7 +19,7 @@ const App = () => {
   })
   return (
     <UserContext.Provider value={{
-      user, setUser, users, setUsers
+      user, setUser
     }}>
       <Stacks />
     </UserContext.Provider>

@@ -14,15 +14,19 @@ import {
 import CheckBox from "react-native-check-box";
 import * as ImagePicker from "expo-image-picker";
 import UploadIcon from "../assets/upload.png";
-import CameraIcon from "../assets/camera.png"
+import CameraIcon from "../assets/camera.png";
 import BackIcon from "../assets/back.png";
 
 import FocusedStatusBar from "../components/FocusedStatusBar";
 import { Link } from "@react-navigation/native";
 
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase-config";
+
 function DonateForm() {
-  const [isSelected, setIsSelected] = useState();
+  const [isSelected, setIsSelected] = useState(false);
   const [image, setImage] = useState(null);
+  const [description, setDescription] = useState("");
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -32,13 +36,22 @@ function DonateForm() {
       quality: 1,
     });
 
-    console.log(result);
+    console.log(result.uri);
+    let localUri = result.uri;
+    let filename = localUri.split("/").pop();
+
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    let formData = new FormData();
+    formData.append("photo", { uri: localUri, name: filename, type });
 
     if (!result.cancelled) {
       setImage(result.uri);
     }
   };
-    const launchCamera = async () => {
+
+  const launchCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -52,7 +65,22 @@ function DonateForm() {
       setImage(result.uri);
     }
   };
-  
+
+  const confirmDonation = async () => {
+    console.log(description);
+    console.log(image);
+    if (isSelected) {
+      try {
+        const docRef = await addDoc(collection(db, "donations"), {
+          image,
+          description,
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    }
+  };
 
   return (
     <>
@@ -67,11 +95,13 @@ function DonateForm() {
             <View style={styles.header}>
               <Link to={{ screen: "HomePage" }} style={styles.backBtn}>
                 <Image source={BackIcon} />
-                <Text style={{ fontSize: 14 }}>  Back</Text>
+                <Text style={{ fontSize: 14 }}> Back</Text>
               </Link>
               <Text style={{ fontSize: 24 }}>Donation Detail</Text>
             </View>
-            <View style={{flexDirection:"row",justifyContent:'space-around'}}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-around" }}
+            >
               <TouchableOpacity
                 style={styles.uploadImage_container}
                 onPress={pickImage}
@@ -84,15 +114,18 @@ function DonateForm() {
                 onPress={launchCamera}
               >
                 <Image source={CameraIcon} />
-                <Text style={{ fontSize: 11, top:12 }}>Capture Product Image</Text>
+                <Text style={{ fontSize: 11, top: 12 }}>
+                  Capture Product Image
+                </Text>
               </TouchableOpacity>
-              </View>
-              <View style={styles.input_container}>
+            </View>
+            <View style={styles.input_container}>
               <TextInput
                 placeholder="Description"
                 style={styles.input}
                 multiline={true}
                 numberOfLines={4}
+                onChangeText={(text) => setDescription(text)}
               />
             </View>
             <View>
@@ -105,7 +138,7 @@ function DonateForm() {
                 rightText="I agree with Terms & Conditions"
               />
             </View>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity style={styles.btn} onPress={confirmDonation}>
               <Text style={{ textAlign: "center", color: "white" }}>
                 Confirm Donation
               </Text>

@@ -15,6 +15,7 @@ import NGODetails from "../screens/NGODetails";
 import MyDonations from "../screens/MyDonations";
 import UploadProfileImage from "../screens/UploadProfileImage"
 import DonationDetails from "../screens/DonationDetails";
+import UploadProfileImage from "../screens/UploadProfileImage";
 
 const Stacks = () => {
   const Stack = createNativeStackNavigator();
@@ -40,6 +41,10 @@ const Stacks = () => {
         <Stack.Screen name="MyDonations" component={MyDonations} />
         <Stack.Screen name="UploadProfileImage" component={UploadProfileImage} />
         <Stack.Screen name="DonationDetails" component={DonationDetails} />
+        <Stack.Screen
+          name="UploadProfileImage"
+          component={UploadProfileImage}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

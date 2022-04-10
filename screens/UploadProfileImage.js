@@ -14,11 +14,13 @@ import CameraIcon from "../assets/camera.png"
 import { useNavigation } from "@react-navigation/native";
 
 import FocusedStatusBar from "../components/FocusedStatusBar";
-
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import app from "../firebase-config";
 function UploadProfileImage() {
-const navigation = useNavigation();
+  const navigation = useNavigation();
   const [isSelected, setIsSelected] = useState();
-  const [image, setImage] = useState(null);
+  // const [image, setImage] = useState(null);
+
 
 
   const pickImage = async () => {
@@ -29,13 +31,19 @@ const navigation = useNavigation();
       quality: 1,
     });
 
-    console.log(result);
+
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      // setImage(result.uri)
+      console.log("--------------------------000------------------")
+      const storage = getStorage();
+      const userRef = ref(storage, 'userImage.jpg')
+      const img = await fetch(result.uri)
+      const bytes = await img.blob()
+      await uploadBytes(userRef, bytes)
     }
   };
-    const launchCamera = async () => {
+  const launchCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -43,13 +51,18 @@ const navigation = useNavigation();
       quality: 1,
     });
 
-    console.log(result);
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      // setImage(result.uri)
+      console.log("--------------------------000------------------")
+      const storage = getStorage();
+      const userRef = ref(storage, 'userImage.jpg')
+      const img = await fetch(result.uri)
+      const bytes = await img.blob()
+      await uploadBytes(userRef, bytes)
     }
   };
-  
+
 
   return (
     <>
@@ -58,40 +71,40 @@ const navigation = useNavigation();
         backgroundColor="transparent"
         translucent={true}
       />
-      <View style={{flexDirection:"column",justifyContent:'center'}}>
-          <Text style={styles.heading}>Give a Profile Image</Text>
-            <View style={{flexDirection:"row",justifyContent:'space-around',top:250}}>
-              <TouchableOpacity
-                style={styles.uploadImage_container}
-                onPress={pickImage}
-              >
-                <Image source={UploadIcon} />
-                <Text style={{ fontSize: 11 }}>Upload Image</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.openCamera_container}
-                onPress={launchCamera}
-              >
-                <Image source={CameraIcon} />
-                <Text style={{ fontSize: 11, top:12 }}>Capture Image</Text>
-              </TouchableOpacity>
-            </View>
-                    <View style={styles.btn_container}>
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => navigation.push("Location")}
-        >
-          <Text style={{ color: "white", textAlign: "center" }}>Next</Text>
-        </TouchableOpacity>
+      <View style={{ flexDirection: "column", justifyContent: 'center' }}>
+        <Text style={styles.heading}>Give a Profile Image</Text>
+        <View style={{ flexDirection: "row", justifyContent: 'space-around', top: 250 }}>
+          <TouchableOpacity
+            style={styles.uploadImage_container}
+            onPress={pickImage}
+          >
+            <Image source={UploadIcon} />
+            <Text style={{ fontSize: 11 }}>Upload Image</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.openCamera_container}
+            onPress={launchCamera}
+          >
+            <Image source={CameraIcon} />
+            <Text style={{ fontSize: 11, top: 12 }}>Capture Image</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.btn_container}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => navigation.push("Location")}
+          >
+            <Text style={{ color: "white", textAlign: "center" }}>Next</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-    
+
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  
+
   uploadImage_container: {
     borderWidth: 3,
     borderStyle: "dashed",
@@ -125,13 +138,13 @@ const styles = StyleSheet.create({
     width: 323.75,
     height: 52,
   },
-   heading: {
-      paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-      fontWeight:'bold',
-      fontSize:30, color:'#000',
-      alignSelf:'center',
-      top:200,
-    
+  heading: {
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    fontWeight: 'bold',
+    fontSize: 30, color: '#000',
+    alignSelf: 'center',
+    top: 200,
+
   }
 });
 
