@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import React from 'react'
 import User from '../components/User'
-import Card_ngo from '../components/Card_ngo'
+import Card_ngoHome from '../components/Card_ngoHome'
 import FocusedStatusBar from "../components/FocusedStatusBar";
 
 
@@ -31,10 +31,10 @@ const NgoHomePage = () => {
                 }} showsVerticalScrollIndicator={false}>
                     <View style={styles.slide_container}>
                         <Text style={styles.txt}>Recent Posts</Text>
-                        <Card_ngo />
-                        <Card_ngo />
-                        <Card_ngo />
-                        <Card_ngo />
+                        <Card_ngoHome />
+                        <Card_ngoHome />
+                       <Card_ngoHome />
+                        <Card_ngoHome />
                     </View>
                 </ScrollView>
             </View>
