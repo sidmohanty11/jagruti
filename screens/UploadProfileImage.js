@@ -36,7 +36,7 @@ function UploadProfileImage() {
     if (!result.cancelled) {
       // setImage(result.uri)
       console.log("--------------------------000------------------")
-      const storage = getStorage(app);
+      const storage = getStorage();
       const userRef = ref(storage, 'userImage.jpg')
       const img = await fetch(result.uri)
       const bytes = await img.blob()
@@ -55,7 +55,7 @@ function UploadProfileImage() {
     if (!result.cancelled) {
       // setImage(result.uri)
       console.log("--------------------------000------------------")
-      const storage = getStorage(app);
+      const storage = getStorage();
       const userRef = ref(storage, 'userImage.jpg')
       const img = await fetch(result.uri)
       const bytes = await img.blob()
