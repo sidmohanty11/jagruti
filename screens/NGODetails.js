@@ -14,10 +14,12 @@ import {
 } from "react-native";
 import BackIcon from "../assets/back.png";
 import PlaceholderImg from "../assets/placeholder.jpg";
+import { useNavigation } from "@react-navigation/native";
 
 import FocusedStatusBar from "../components/FocusedStatusBar";
 
-function NGODetails() {
+function NGODetails({ route }) {
+  const data = route.params;
   return (
     <>
       <FocusedStatusBar
@@ -27,17 +29,17 @@ function NGODetails() {
       />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <SafeAreaView>
-          <Image source={PlaceholderImg} style={styles.image} />
+          <Image source={{ uri: data.image }} style={styles.image} />
           <View style={styles.inner_container}>
             <View style={styles.header}>
               <Link to={{ screen: "HomePage" }} style={styles.backBtn}>
                 <Image source={BackIcon} />
                 <Text style={{ fontSize: 14 }}>Back</Text>
               </Link>
-              <Text style={{ fontSize: 24 }}>Name of The NGO</Text>
+              <Text style={{ fontSize: 24 }}>{data.title}</Text>
             </View>
             <View>
-              <Text>Location</Text>
+              <Text>{data.location}</Text>
             </View>
             <View style={styles.whatdotheydo}>
               <Text>
