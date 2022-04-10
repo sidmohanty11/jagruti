@@ -23,7 +23,7 @@ const SelectRole = () => {
       })
     )
     data.setUsers([...data.users, data.user])
-    navigation.push('HomePage')
+    navigation.push('UploadProfileImage')
   }
 
   const handlePressNgo = () => {

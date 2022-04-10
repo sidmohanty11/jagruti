@@ -1,7 +1,9 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useNavigation } from "@react-navigation/native";
 
 const Card_ngo = () => {
+    const navigation = useNavigation();
     return (
         <View style={styles.card}>
             <View style={styles.img_container}>
@@ -18,6 +20,7 @@ const Card_ngo = () => {
                     <Text>
                         19/02/21
                     </Text>
+                    <TouchableOpacity  onPress={() => navigation.push("DonationDetails")}>
                     <Text
                         style={{
                             color: 'tomato',
@@ -26,7 +29,7 @@ const Card_ngo = () => {
                         }}
                     >
                         See Details
-                    </Text>
+                    </Text></TouchableOpacity>
                 </View>
             </View>
         </View>
