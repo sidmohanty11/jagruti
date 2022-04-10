@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -14,9 +14,11 @@ import CameraIcon from "../assets/camera.png";
 import { useNavigation } from "@react-navigation/native";
 import FocusedStatusBar from "../components/FocusedStatusBar";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { UserContext } from "../App";
+
 function UploadProfileImage() {
   const navigation = useNavigation();
-  const [isSelected, setIsSelected] = useState();
+  const data = useContext(UserContext);
   const [image, setImage] = useState(null);
 
   const pickImage = async () => {
@@ -28,7 +30,6 @@ function UploadProfileImage() {
     });
 
     if (!result.cancelled) {
-      // console.log("Opening cameraaaaaaaaaaaaaaaaaaaaaa.......................")
       const storage = getStorage(); // the storage
       console.log(result);
       const ref_con = ref(storage, new Date().toISOString()); // how image is addresed inside storage
@@ -36,7 +37,11 @@ function UploadProfileImage() {
       const img = await fetch(result.uri); // get the image as string
       const bytes = await img.blob(); // convert string to bytes
       await uploadBytes(ref_con, bytes);
-      // getDownloadURL(ref_con).then((res) => console.log(res));
+      getDownloadURL(ref_con).then((res) => setImage(res));
+      data.setUser((prevState) => ({
+        ...prevState,
+        photo_url: image,
+      }));
     }
   };
 
@@ -49,14 +54,18 @@ function UploadProfileImage() {
     });
 
     if (!result.cancelled) {
-      // console.log("Opening cameraaaaaaaaaaaaaaaaaaaaaa.......................")
       const storage = getStorage(); // the storage
-      const ref_con = ref(storage, result.name); // how image is addresed inside storage
+      console.log(result);
+      const ref_con = ref(storage, new Date().toISOString()); // how image is addresed inside storage
 
       const img = await fetch(result.uri); // get the image as string
       const bytes = await img.blob(); // convert string to bytes
       await uploadBytes(ref_con, bytes);
-      getDownloadURL(ref_con).then((res) => console.log(res));
+      getDownloadURL(ref_con).then((res) => setImage(res));
+      data.setUser((prevState) => ({
+        ...prevState,
+        photo_url: image,
+      }));
     }
   };
 
