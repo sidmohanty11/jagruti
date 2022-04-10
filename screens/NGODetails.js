@@ -11,10 +11,12 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Image,
+  Dimensions,
 } from "react-native";
 import BackIcon from "../assets/back.png";
 import PlaceholderImg from "../assets/placeholder.jpg";
 import { useNavigation } from "@react-navigation/native";
+import MapView from "react-native-maps";
 
 import FocusedStatusBar from "../components/FocusedStatusBar";
 
@@ -34,7 +36,7 @@ function NGODetails({ route }) {
             <View style={styles.header}>
               <Link to={{ screen: "HomePage" }} style={styles.backBtn}>
                 <Image source={BackIcon} />
-                <Text style={{ fontSize: 14 }}>  Back</Text>
+                <Text style={{ fontSize: 14 }}> Back</Text>
               </Link>
               <Text style={{ fontSize: 24 }}>{data.title}</Text>
             </View>
@@ -70,7 +72,9 @@ function NGODetails({ route }) {
                 Message
               </Text>
             </TouchableOpacity>
-            {/* map */}
+            <View style={styles.container}>
+              <MapView style={styles.map} />
+            </View>
           </View>
         </SafeAreaView>
       </TouchableWithoutFeedback>
@@ -107,6 +111,16 @@ const styles = StyleSheet.create({
   },
   whatdotheydo: {
     padding: 10,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  map: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
 });
 
