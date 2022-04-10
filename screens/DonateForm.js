@@ -28,6 +28,7 @@ function DonateForm() {
   const [image, setImage] = useState(null);
   const [description, setDescription] = useState("");
 
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -36,20 +37,20 @@ function DonateForm() {
       quality: 1,
     });
 
-    console.log(result.uri);
-    let localUri = result.uri;
-    let filename = localUri.split("/").pop();
-
-    let match = /\.(\w+)$/.exec(filename);
-    let type = match ? `image/${match[1]}` : `image`;
-
-    let formData = new FormData();
-    formData.append("photo", { uri: localUri, name: filename, type });
-
     if (!result.cancelled) {
-      setImage(result.uri);
+      // console.log("Opening cameraaaaaaaaaaaaaaaaaaaaaa.......................")
+      const storage = getStorage();  // the storage
+      const ref_con = ref(storage, result.name) // how image is addresed inside storage
+
+      const img = await fetch(result.uri) // get the image as string
+      const bytes = await img.blob() // convert string to bytes
+      await uploadBytes(ref_con, bytes)
+      getDownloadURL(ref_con).then(res => {
+        setImage(res)
+      })
     }
   };
+
 
   const launchCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -59,10 +60,16 @@ function DonateForm() {
       quality: 1,
     });
 
-    console.log(result);
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      // console.log("Opening cameraaaaaaaaaaaaaaaaaaaaaa.......................")
+      const storage = getStorage();  // the storage
+      const ref_con = ref(storage, result.name) // how image is addresed inside storage
+
+      const img = await fetch(result.uri) // get the image as string
+      const bytes = await img.blob() // convert string to bytes
+      await uploadBytes(ref_con, bytes)
+      getDownloadURL(ref_con).then(res => console.log(res))
     }
   };
 

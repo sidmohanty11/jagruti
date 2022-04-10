@@ -60,6 +60,7 @@ function UploadProfileImage() {
       await uploadBytes(ref_con, bytes)
       getDownloadURL(ref_con).then(res => console.log(res))
     }
+      getDownloadURL(ref_con).then(res => console.log(res))
   };
 
 
