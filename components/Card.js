@@ -5,11 +5,14 @@ const Card = ({ title, location, image }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.card_container}>
-      <Image source={image} style={styles.img} />
+      <Image source={{ uri: image }} style={styles.img} />
       <View style={styles.details_container}>
-        <Text style={styles.title}
+        <Text
+          style={styles.title}
           onPress={() => navigation.push("NGODetails")}
-        >{title}</Text>
+        >
+          {title}
+        </Text>
         <Text style={styles.location}>{location}</Text>
       </View>
     </View>
