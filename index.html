@@ -6,30 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Jagruti</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <div>
       <section>
         <aside
-          class="overflow-hidden text-white lg:grid bg-gradient-to-r from-red-500 to-white lg:grid-cols-2 lg:items-center"
+          class="overflow-hidden text-white lg:grid bg-red-400 lg:grid-cols-2 lg:items-center"
         >
           <div class="p-12 text-center sm:p-16 lg:p-24 lg:text-left">
             <div class="max-w-lg mx-auto lg:ml-0 lg:pt-12">
               <p class="text-3xl font-bold sm:text-4xl">Jagruti</p>
 
-              <p class="mt-4">Waste Less, Save More, Live More</p>
+              <p class="mt-4">A mobile application to reduce food wastage and feed the people who go to sleep on empty stomach every day. And allowing people to post about the ongoing public events or to initiate an event where interested people can participate.</p>
               <div class="mt-4">
               <a
                 class="relative inline-block text-sm font-medium text-white group focus:outline-none focus:ring"
-                href="#"
+                target="_blank"
+                href="https://expo.dev/@saurabh19/RNbeginner?serviceType=classic&distribution=expo-go"
               >
                   <span
                     class="absolute inset-0 border border-red-600 group-active:border-red-500"
                   ></span>
                   <span
-                    class="block px-12 py-3 transition-transform bg-red-600 border border-red-600 active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1"
+                    class="flex px-12 py-3 transition-transform bg-white border border-white active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1 text-black font-bold text-xl"
                   >
-                    Download
+                  <svg class="pr-2 mr-2e" role="img" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><title>Expo icon</title><path d="M0 20.084c.043.53.23 1.063.718 1.778.58.849 1.576 1.315 2.303.567.49-.505 5.794-9.776 8.35-13.29a.761.761 0 011.248 0c2.556 3.514 7.86 12.785 8.35 13.29.727.748 1.723.282 2.303-.567.57-.835.728-1.42.728-2.046 0-.426-8.26-15.798-9.092-17.078-.8-1.23-1.044-1.498-2.397-1.542h-1.032c-1.353.044-1.597.311-2.398 1.542C8.267 3.991.33 18.758 0 19.77Z"/></svg>Test it Out Here
                   </span>
                 </div>
               </a>
@@ -38,11 +40,21 @@
 
           <div class="lg:pt-24">
             <div class="relative w-full h-64 sm:h-96 lg:h-[500px]">
-              <!-- video -->
+              <video width="800" height="240" controls>
+                <source src="app.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+              </video>
             </div>
           </div>
         </aside>
       </section>
+    </div>
+    <div class="container mx-auto pt-4">
+      <div class="h-3 text-3xl text-left text-gray-600">“</div>
+      <p class="px-4 text-sm text-center text-xl">Food security lies in the top 5 global issues. Over 20 crore Indians go to sleep empty-stomach every day. FAO 2019 Report reveals that around 14.5% of the Indian population falls beneath the underfed category. On the other hand, the amount of food wasted in India is estimated to be 68,760,163 tonnes a year. According to a study majority of the food gets wasted by restaurants or religious functions.
+        India has around 31 lakh NGOs, more than double the number of schools. We are building a mobile application that connects the two vital sectors in reducing food wastage as well as feeding the citizens. The nearest NGOs receive an instant notification whenever anyone updates on food availability. People can even conduct public events and post them on the application asking interested people to participate.
+      </p><div class="h-3 text-3xl text-right text-gray-600">”</div>
+      
     </div>
     <footer class="text-center">
       <div class="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:px-8">
@@ -68,7 +80,6 @@
                 ></path>
               </svg>
             </a>
-    
             <a
               class="text-pink-600 hover:text-opacity-75"
               href="https://www.figma.com/file/zpHzvPwIMkvqPImdZsreHT/Jagruti?node-id=0%3A1"
@@ -82,21 +93,14 @@
                 style=" fill:#000000;"><path fill="#e64a19" d="M26,17h-8c-3.866,0-7-3.134-7-7v0c0-3.866,3.134-7,7-7h8V17z"></path><path fill="#7c4dff" d="M25,31h-7c-3.866,0-7-3.134-7-7v0c0-3.866,3.134-7,7-7h7V31z"></path><path fill="#66bb6a" d="M18,45L18,45c-3.866,0-7-3.134-7-7v0c0-3.866,3.134-7,7-7h7v7C25,41.866,21.866,45,18,45z"></path><path fill="#ff7043" d="M32,17h-7V3h7c3.866,0,7,3.134,7,7v0C39,13.866,35.866,17,32,17z"></path><circle cx="32" cy="24" r="7" fill="#29b6f6"></circle></svg>
             </a>
           </div>
-    
-          <nav
-            class="relative flex flex-wrap justify-center gap-8 p-8 text-sm font-bold border-4 border-black rounded-xl"
-          >
-           <p>React Native</p>
-           <p>Firebase</p>
-           <p>Google Maps</p>
-           <p></p>
-          </nav>
-    
           <p class="max-w-lg mx-auto text-xs text-gray-500">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, natus
-            tempore illo laborum nam, modi quam sequi amet quo quasi impedit iure
-            eum similique pariatur alias exercitationem, porro perspiciatis esse.
-            Corporis odit consequatur sint sequi.
+            <h6 class="block mt-1 text-black underline decoration-wavy decoration-black">Authors:</h6>
+            <ul class="underline">
+            <li><a href="https://github.com/saurabh190802">@saurabh190802</a></li>
+            <li><a href="https://github.com/sidmohanty11">@sidmohanty11</a></li>
+            <li><a href="https://github.com/ujwal-danta">@ujwal-danta</a></li>
+            <li><a href="mailto:aadygoog99@gmail.com">@aadyasha</a></li>
+          </ul>
     
             <a
               class="block mt-1 text-pink-600 underline decoration-wavy decoration-pink-500 hover:opacity-75"
@@ -104,9 +108,22 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              External Link
+             DevFolio
             </a>
           </p>
+          <nav
+            class="relative flex flex-wrap justify-center gap-8 p-8 text-sm font-bold border-4 border-black rounded-xl"
+          >
+           <p>React Native</p>
+           <p>Firebase</p>
+           <p>HTML</p>
+           <p>CSS</p>
+           <p>Google Maps</p>
+           <p>VS code</p>
+           <p>JavaScript</p>
+          </nav>
+    
+         
     
           <p class="text-xs font-medium">2022 Team: <span class="text-red-500 font-bold text-xl">no_name_yet</span></p>
         </div>
