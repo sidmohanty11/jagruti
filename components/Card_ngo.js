@@ -26,7 +26,7 @@ const Card_ngo = ({ title, location, image }) => {
         <View>
           <TouchableOpacity
             onPress={() =>
-              navigation.push("DonationDetails", {
+              navigation.push("EventsDetails", {
                 title,
                 location,
                 image,
@@ -53,11 +53,13 @@ const styles = StyleSheet.create({
   card: {
     width: "80%",
     height: 200,
-    borderWidth: 0.5,
+    // borderWidth: 0.5,
     marginBottom: 20,
     borderRadius: 10,
     overflow: "hidden",
     flexDirection: "row",
+    marginLeft: 35,
+    backgroundColor:'#fff'
   },
   img_container: {
     marginVertical: 10,

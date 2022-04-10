@@ -11,10 +11,12 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Image,
+  ScrollView,
 } from "react-native";
 import BackIcon from "../assets/back.png";
 import PlaceholderImg from "../assets/placeholder.jpg";
 import { useNavigation } from "@react-navigation/native";
+import MapView from "react-native-maps";
 
 import FocusedStatusBar from "../components/FocusedStatusBar";
 
@@ -29,6 +31,7 @@ function EventsDetails({ route }) {
       />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <SafeAreaView>
+          <ScrollView>
           <Image source={{ uri: data.image }} style={styles.image} />
           <View style={styles.inner_container}>
             <View style={styles.header}>
@@ -59,9 +62,13 @@ function EventsDetails({ route }) {
                 Message
               </Text>
             </TouchableOpacity>
-            {/* map */}
           </View>
+          <View style={styles.container}> 
+              <MapView style={styles.map} />
+             </View> 
+             </ScrollView>
         </SafeAreaView>
+        
       </TouchableWithoutFeedback>
     </>
   );
@@ -96,6 +103,19 @@ const styles = StyleSheet.create({
   },
   whatdotheydo: {
     padding: 10,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  map: {
+    //width: Dimensions.get("window").width,
+    //height: Dimensions.get("window").height,
+    width:400,
+    height:600,
+    padding:20,
   },
 });
 

@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Image,
-  Dimensions,
+  ScrollView,
 } from "react-native";
 import BackIcon from "../assets/back.png";
 import PlaceholderImg from "../assets/placeholder.jpg";
@@ -31,6 +31,7 @@ function NGODetails({ route }) {
       />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <SafeAreaView>
+          <ScrollView>
           <Image source={{ uri: data.image }} style={styles.image} />
           <View style={styles.inner_container}>
             <View style={styles.header}>
@@ -72,10 +73,14 @@ function NGODetails({ route }) {
                 Message
               </Text>
             </TouchableOpacity>
-            <View style={styles.container}>
+             {/* <View style={styles.container}> 
               <MapView style={styles.map} />
-            </View>
+             </View>  */}
           </View>
+           <View style={styles.container}> 
+              <MapView style={styles.map} />
+             </View> 
+          </ScrollView>
         </SafeAreaView>
       </TouchableWithoutFeedback>
     </>
@@ -119,8 +124,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   map: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    //width: Dimensions.get("window").width,
+    //height: Dimensions.get("window").height,
+    width:400,
+    height:600,
+    padding:20,
   },
 });
 

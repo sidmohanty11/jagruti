@@ -7,9 +7,12 @@ import {
   Platform,
   StatusBar,
   ScrollView,
+  FlatList
 } from "react-native";
 import React from "react";
 import Card_ngo from "../components/Card_ngo";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase-config";
 
 const Events = () => {
   //   const data = [
@@ -50,8 +53,9 @@ const Events = () => {
         >
           <View style={styles.slide_container}>
             <Text style={styles.txt}>Events near you...</Text>
+
           </View>
-          <FlatList
+                       <FlatList
             keyExtractor={(item) => item.id}
             data={data}
             renderItem={({ item }) => (
@@ -62,6 +66,7 @@ const Events = () => {
               />
             )}
           />
+         
         </ScrollView>
       </View>
     </>

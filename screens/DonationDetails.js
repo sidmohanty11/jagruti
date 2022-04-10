@@ -7,12 +7,13 @@ import {
   View,
   ScrollView,
   Dimensions,
-  Link,
-  StatusBar
+  StatusBar,
 } from 'react-native';
 import FocusedStatusBar from '../components/FocusedStatusBar';
 import BackIcon from '../assets/back.png';
 import NotificationIcon from '../assets/images/notification.png';
+
+
 
 
 
@@ -45,6 +46,7 @@ class DonationDetails extends Component {
   }
 
   render() {
+    
     const { active } = this.state;
     return (
         <><FocusedStatusBar
@@ -52,9 +54,9 @@ class DonationDetails extends Component {
             backgroundColor="transparent"
             translucent={true} />
             <View style={styles.header}>
-               
+              
                 <Image source={BackIcon} style={{alignSelf:'flex-start', top:7,left:-20}} />
-                
+            
                
               <Text style={{ fontSize: 24, alignSelf:'center' }}>DonationDetails</Text>
               <Image source={NotificationIcon} style={{alignSelf:'flex-end', top:-3}}/>
