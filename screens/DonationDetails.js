@@ -85,7 +85,24 @@ class DonationDetails extends Component {
                     </View>
                 </View>
 
-            </SafeAreaView></>
+            </SafeAreaView>
+            <View style ={{padding:30,top:-25,alignSelf:'flex-start'}}>
+              <Text style={{fontSize:32,fontWeight:'bold',color:'#535353'}}>
+                Description
+              </Text> 
+              <Text style={{fontSize:25,fontWeight:'500',color:'#535353'}}>name</Text>
+            </View>
+                <View style ={{padding:30,top:-120,alignSelf:'flex-end',flexDirection:'row'}}>
+                  <Image source={require('../assets/location.png')} style={{top:10,right:10 }}/>
+              <Text style={{fontSize:25,fontWeight:'bold',color:'#F95F5F',textDecorationLine:'underline'}}>location</Text>
+            </View>
+            <View style={{padding:30,top:-150}}>
+              <Text style={{fontSize:15,color:'#535353'}}>
+                I am a poor guy from Mumbai. By doing all kinds of works I sent my siblings to school. But due to the Corona pandemic I am no longer able to do my work nor am I able to pay the fees of my siblings. I am a poor guy from Mumbai. By doing all kinds of works I sent my siblings to school. But due to the Corona pandemic I am no longer able to do my work nor am I able to pay the fees of my siblings. 
+
+              </Text>
+            </View>
+            </>
     );
   }
 };

@@ -11,21 +11,18 @@ const Card_ngo = () => {
             </View>
             <View style={styles.txt_container}>
                 <View>
-                    <Text>Header</Text>
+                    <Text>donation</Text>
                     <Text style={{
                         fontWeight: 'bold'
-                    }}>sub-header</Text>
+                    }}>location</Text>
                 </View>
                 <View >
-                    <Text>
-                        19/02/21
-                    </Text>
                     <TouchableOpacity  onPress={() => navigation.push("DonationDetails")}>
                     <Text
                         style={{
                             color: 'tomato',
                             paddingTop: 1,
-                            fontWeight: '900'
+                            fontWeight: '900',
                         }}
                     >
                         See Details

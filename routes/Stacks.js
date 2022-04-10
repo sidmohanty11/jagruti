@@ -21,7 +21,7 @@ const Stacks = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="SplashScreen"
+        initialRouteName="NgoHomePage"
         screenOptions={{
           headerShown: false,
         }}

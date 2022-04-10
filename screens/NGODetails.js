@@ -34,7 +34,7 @@ function NGODetails({ route }) {
             <View style={styles.header}>
               <Link to={{ screen: "HomePage" }} style={styles.backBtn}>
                 <Image source={BackIcon} />
-                <Text style={{ fontSize: 14 }}>Back</Text>
+                <Text style={{ fontSize: 14 }}>  Back</Text>
               </Link>
               <Text style={{ fontSize: 24 }}>{data.title}</Text>
             </View>
