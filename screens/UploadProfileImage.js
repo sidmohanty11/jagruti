@@ -19,7 +19,6 @@ function UploadProfileImage() {
   const [isSelected, setIsSelected] = useState();
   const [image, setImage] = useState(null);
 
-
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -58,9 +57,12 @@ function UploadProfileImage() {
       const img = await fetch(result.uri) // get the image as string
       const bytes = await img.blob() // convert string to bytes
       await uploadBytes(ref_con, bytes)
-      getDownloadURL(ref_con).then(res => console.log(res))
+      getDownloadURL(ref_con).then(res => {
+        console.log(res)
+
+      })
     }
-      getDownloadURL(ref_con).then(res => console.log(res))
+
   };
 
 
