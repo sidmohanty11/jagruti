@@ -12,15 +12,12 @@ import * as ImagePicker from "expo-image-picker";
 import UploadIcon from "../assets/upload.png";
 import CameraIcon from "../assets/camera.png"
 import { useNavigation } from "@react-navigation/native";
-
 import FocusedStatusBar from "../components/FocusedStatusBar";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import app from "../firebase-config";
 function UploadProfileImage() {
   const navigation = useNavigation();
   const [isSelected, setIsSelected] = useState();
-  // const [image, setImage] = useState(null);
-
+  const [image, setImage] = useState(null);
 
 
   const pickImage = async () => {
@@ -31,18 +28,28 @@ function UploadProfileImage() {
       quality: 1,
     });
 
+    // console.log(result.uri);
+    // let localUri = result.uri;
+    // let filename = localUri.split("/").pop();
 
+    // let match = /\.(\w+)$/.exec(filename);
+    // let type = match ? `image/${match[1]}` : `image`;
+
+    // let formData = new FormData();
+    // formData.append("photo", { uri: localUri, name: filename, type });
+    // console.log(formData)
 
     if (!result.cancelled) {
-      // setImage(result.uri)
-      console.log("--------------------------000------------------")
-      const storage = getStorage();
-      const userRef = ref(storage, 'userImage.jpg')
-      const img = await fetch(result.uri)
-      const bytes = await img.blob()
-      await uploadBytes(userRef, bytes)
+      const storage = getStorage();  // the storage
+      const ref_con = ref(storage, 'image.jpg') // how image is addresed inside storage
+
+      const img = await fetch(result.uri) // get the image as string
+      const bytes = await img.blob() // convert string to bytes
+      await uploadBytes(ref_con, bytes)
     }
   };
+
+
   const launchCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -53,13 +60,13 @@ function UploadProfileImage() {
 
 
     if (!result.cancelled) {
-      // setImage(result.uri)
-      console.log("--------------------------000------------------")
-      const storage = getStorage();
-      const userRef = ref(storage, 'userImage.jpg')
-      const img = await fetch(result.uri)
-      const bytes = await img.blob()
-      await uploadBytes(userRef, bytes)
+      // console.log("Opening cameraaaaaaaaaaaaaaaaaaaaaa.......................")
+      const storage = getStorage();  // the storage
+      const ref_con = ref(storage, 'image.jpg') // how image is addresed inside storage
+
+      const img = await fetch(result.uri) // get the image as string
+      const bytes = await img.blob() // convert string to bytes
+      await uploadBytes(ref_con, bytes)
     }
   };
 

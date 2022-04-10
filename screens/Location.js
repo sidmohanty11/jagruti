@@ -9,7 +9,7 @@ import {
 import React from "react";
 import FocusedStatusBar from "../components/FocusedStatusBar";
 import { useNavigation } from "@react-navigation/native";
-
+import { collection, addDoc } from "firebase/firestore";
 const Location = ({ onSearch }) => {
   const navigation = useNavigation();
   return (
