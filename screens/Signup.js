@@ -20,15 +20,13 @@ import { UserContext } from '../App'
 function Signup() {
   const navigation = useNavigation();
 
-  // const [email, setEmail] = useState('')
-  // const [password, setPassword] = useState('')
   const data = useContext(UserContext)
 
   const handleCreateAccount = () => {
     createUserWithEmailAndPassword(auth, data.user.email, data.user.password)
       .then((userCredentials) => {
         const user = userCredentials.user
-        data.setUsers([...data.users, data.user])
+        //console.log(data.user)
         navigation.push("SelectRole")
       })
       .catch((err) => {
@@ -39,7 +37,6 @@ function Signup() {
 
   return (
     <>
-      {/* {console.log(data.user)} */}
       <FocusedStatusBar
         barStyle="dark-content"
         backgroundColor="transparent"
