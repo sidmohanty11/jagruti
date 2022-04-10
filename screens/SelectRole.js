@@ -6,12 +6,37 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import FocusedStatusBar from "../components/FocusedStatusBar";
 import { useNavigation } from "@react-navigation/native";
+import { UserContext } from "../App";
 
 const SelectRole = () => {
-  const navigation = useNavigation();
+  const data = useContext(UserContext)
+  const navigation = useNavigation()
+
+  const handlePressDonate = () => {
+    data.setUser(
+      prevState => ({
+        ...prevState,
+        role: 'single_user',
+      })
+    )
+    data.setUsers([...data.users, data.user])
+    navigation.push('HomePage')
+  }
+
+  const handlePressNgo = () => {
+    data.setUser(
+      prevState => ({
+        ...prevState,
+        role: 'ngo',
+        isNgo: true
+      })
+    )
+    data.setUsers([...data.users, data.user])
+    navigation.push('NgoHomePage')
+  }
   return (
     <SafeAreaView>
       <FocusedStatusBar
@@ -37,7 +62,7 @@ const SelectRole = () => {
       <View style={styles.buttonsView1}>
         <TouchableOpacity
           activeOpacity={0}
-          onPress={() => navigation.push("UploadProfileImage")}
+          onPress={handlePressDonate}
         >
           <Image
             source={require("../assets/images/donate.png")}
@@ -51,7 +76,7 @@ const SelectRole = () => {
       <View style={styles.buttonsView2}>
         <TouchableOpacity
           activeOpacity={0}
-          onPress={() => navigation.push("UploadProfileImage")}
+          onPress={handlePressNgo}
         >
           <Image
             source={require("../assets/images/ngo.png")}
