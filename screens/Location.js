@@ -6,12 +6,50 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import FocusedStatusBar from "../components/FocusedStatusBar";
 import { useNavigation } from "@react-navigation/native";
 import { collection, addDoc } from "firebase/firestore";
+import { UserContext } from "../App";
+import * as LocationGPS from "expo-location";
+import { db } from "../firebase-config";
+
 const Location = ({ onSearch }) => {
+  const [location, setLocation] = useState(null);
   const navigation = useNavigation();
+  const { user, setUser } = useContext(UserContext);
+
+  const handleLocation = async () => {
+    setUser((prevState) => ({ ...prevState, location }));
+    try {
+      const docRef = await addDoc(collection(db, "users"), user);
+      console.log("Document written with ID: ", docRef.id);
+      navigation.push("HomePage")
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+    navigation.push("HomePage")
+  };
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await LocationGPS.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      let location = await LocationGPS.getCurrentPositionAsync({});
+      console.log(location);
+      setLocation(location);
+      setUser((prevState) => ({
+        ...prevState,
+        location
+      }))
+      console.log(user)
+    })();
+  }, []);
+
   return (
     <>
       <FocusedStatusBar
@@ -47,10 +85,7 @@ const Location = ({ onSearch }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.btn_container}>
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => navigation.push("HomePage")}
-        >
+        <TouchableOpacity style={styles.btn} onPress={handleLocation}>
           <Text style={{ color: "white", textAlign: "center" }}>Next</Text>
         </TouchableOpacity>
       </View>

@@ -28,7 +28,6 @@ function DonateForm() {
   const [image, setImage] = useState(null);
   const [description, setDescription] = useState("");
 
-
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -38,19 +37,20 @@ function DonateForm() {
     });
 
     if (!result.cancelled) {
-      // console.log("Opening cameraaaaaaaaaaaaaaaaaaaaaa.......................")
-      const storage = getStorage();  // the storage
-      const ref_con = ref(storage, result.name) // how image is addresed inside storage
+      const storage = getStorage(); // the storage
+      console.log(result);
+      const ref_con = ref(storage, new Date().toISOString()); // how image is addresed inside storage
 
-      const img = await fetch(result.uri) // get the image as string
-      const bytes = await img.blob() // convert string to bytes
-      await uploadBytes(ref_con, bytes)
-      getDownloadURL(ref_con).then(res => {
-        setImage(res)
-      })
+      const img = await fetch(result.uri); // get the image as string
+      const bytes = await img.blob(); // convert string to bytes
+      await uploadBytes(ref_con, bytes);
+      getDownloadURL(ref_con).then((res) => setImage(res));
+      data.setUser((prevState) => ({
+        ...prevState,
+        photo_url: image,
+      }));
     }
   };
-
 
   const launchCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -60,16 +60,19 @@ function DonateForm() {
       quality: 1,
     });
 
-
     if (!result.cancelled) {
-      // console.log("Opening cameraaaaaaaaaaaaaaaaaaaaaa.......................")
-      const storage = getStorage();  // the storage
-      const ref_con = ref(storage, result.name) // how image is addresed inside storage
+      const storage = getStorage(); // the storage
+      console.log(result);
+      const ref_con = ref(storage, new Date().toISOString()); // how image is addresed inside storage
 
-      const img = await fetch(result.uri) // get the image as string
-      const bytes = await img.blob() // convert string to bytes
-      await uploadBytes(ref_con, bytes)
-      getDownloadURL(ref_con).then(res => console.log(res))
+      const img = await fetch(result.uri); // get the image as string
+      const bytes = await img.blob(); // convert string to bytes
+      await uploadBytes(ref_con, bytes);
+      getDownloadURL(ref_con).then((res) => setImage(res));
+      data.setUser((prevState) => ({
+        ...prevState,
+        photo_url: image,
+      }));
     }
   };
 

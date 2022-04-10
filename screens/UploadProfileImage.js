@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -10,14 +10,27 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import UploadIcon from "../assets/upload.png";
-import CameraIcon from "../assets/camera.png"
+import CameraIcon from "../assets/camera.png";
 import { useNavigation } from "@react-navigation/native";
 import FocusedStatusBar from "../components/FocusedStatusBar";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { UserContext } from "../App";
+
 function UploadProfileImage() {
   const navigation = useNavigation();
   const [isSelected, setIsSelected] = useState();
   const [image, setImage] = useState(null);
+  const data = useContext(UserContext);
+
+  useEffect(() => {
+    data.setUser((prevState) => ({
+      ...prevState,
+      photoUrl: image,
+    }))
+    console.log("use effect called")
+    console.log(data.user)
+  }, [image])
+
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -28,17 +41,20 @@ function UploadProfileImage() {
     });
 
     if (!result.cancelled) {
-      // console.log("Opening cameraaaaaaaaaaaaaaaaaaaaaa.......................")
-      const storage = getStorage();  // the storage
-      const ref_con = ref(storage, result.name) // how image is addresed inside storage
+      const storage = getStorage(); // the storage
+      const ref_con = ref(storage, new Date().toISOString()); // how image is addresed inside storage
 
-      const img = await fetch(result.uri) // get the image as string
-      const bytes = await img.blob() // convert string to bytes
-      await uploadBytes(ref_con, bytes)
-      getDownloadURL(ref_con).then(res => console.log(res))
+      const img = await fetch(result.uri); // get the image as string
+      const bytes = await img.blob(); // convert string to bytes
+      await uploadBytes(ref_con, bytes);
+      setImage(await getDownloadURL(ref_con))
+      // setImage(url)
+      data.setUser((prevState) => ({
+        ...prevState,
+        photoUrl: image,
+      }))
     }
   };
-
 
   const launchCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -48,23 +64,25 @@ function UploadProfileImage() {
       quality: 1,
     });
 
-
     if (!result.cancelled) {
-      // console.log("Opening cameraaaaaaaaaaaaaaaaaaaaaa.......................")
-      const storage = getStorage();  // the storage
-      const ref_con = ref(storage, result.name) // how image is addresed inside storage
+      const storage = getStorage(); // the storage
+      const ref_con = ref(storage, new Date().toISOString()); // how image is addresed inside storage
 
-      const img = await fetch(result.uri) // get the image as string
-      const bytes = await img.blob() // convert string to bytes
-      await uploadBytes(ref_con, bytes)
-      getDownloadURL(ref_con).then(res => {
-        console.log(res)
-
-      })
+      const img = await fetch(result.uri); // get the image as string
+      const bytes = await img.blob(); // convert string to bytes
+      await uploadBytes(ref_con, bytes);
+      const url = await getDownloadURL(ref_con);
+      setImage(url)
+      data.setUser((prevState) => ({
+        ...prevState,
+        photoUrl: image,
+      }));
     }
-
   };
 
+  const handleSubmit = () => {
+    navigation.push("Location");
+  };
 
   return (
     <>
@@ -73,9 +91,15 @@ function UploadProfileImage() {
         backgroundColor="transparent"
         translucent={true}
       />
-      <View style={{ flexDirection: "column", justifyContent: 'center' }}>
+      <View style={{ flexDirection: "column", justifyContent: "center" }}>
         <Text style={styles.heading}>Give a Profile Image</Text>
-        <View style={{ flexDirection: "row", justifyContent: 'space-around', top: 250 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-around",
+            top: 250,
+          }}
+        >
           <TouchableOpacity
             style={styles.uploadImage_container}
             onPress={pickImage}
@@ -92,21 +116,16 @@ function UploadProfileImage() {
           </TouchableOpacity>
         </View>
         <View style={styles.btn_container}>
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => navigation.push("Location")}
-          >
+          <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
             <Text style={{ color: "white", textAlign: "center" }}>Next</Text>
           </TouchableOpacity>
         </View>
       </View>
-
     </>
   );
 }
 
 const styles = StyleSheet.create({
-
   uploadImage_container: {
     borderWidth: 3,
     borderStyle: "dashed",
@@ -142,12 +161,12 @@ const styles = StyleSheet.create({
   },
   heading: {
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    fontWeight: 'bold',
-    fontSize: 30, color: '#000',
-    alignSelf: 'center',
+    fontWeight: "bold",
+    fontSize: 30,
+    color: "#000",
+    alignSelf: "center",
     top: 200,
-
-  }
+  },
 });
 
 export default UploadProfileImage;

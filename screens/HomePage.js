@@ -5,14 +5,16 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import Card from "../components/Card";
 import FocusedStatusBar from "../components/FocusedStatusBar";
 import { AntDesign } from "@expo/vector-icons";
 import { Link } from "@react-navigation/native";
 import User from "../components/User";
+import { UserContext } from "../App";
 
 const HomePage = () => {
+  const { user } = useContext(UserContext);
   return (
     <>
       <FocusedStatusBar
@@ -23,7 +25,6 @@ const HomePage = () => {
 
       <User />
       <View style={styles.home_container}>
-
         <View style={styles.btn_container}>
           <TouchableOpacity style={styles.btn_donate}>
             <Text
@@ -33,14 +34,14 @@ const HomePage = () => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.btn_home}>
-            <Text
-              style={{ color: "#fff", textAlign: "center", fontSize: 20 }}
-            >
+            <Text style={{ color: "#fff", textAlign: "center", fontSize: 20 }}>
               <Link to={{ screen: "Home" }}>Home</Link>
             </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.btn_events}>
-            <Text style={{ color: "#ff6347", textAlign: "center", fontSize: 20 }}>
+            <Text
+              style={{ color: "#ff6347", textAlign: "center", fontSize: 20 }}
+            >
               <Link to={{ screen: "Events" }}>Event</Link>
             </Text>
           </TouchableOpacity>
@@ -105,7 +106,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingVertical: 10,
     paddingHorizontal: 30,
-
   },
   txt: {
     color: "#525252",
