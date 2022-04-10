@@ -13,7 +13,7 @@ import UploadIcon from "../assets/upload.png";
 import CameraIcon from "../assets/camera.png"
 import { useNavigation } from "@react-navigation/native";
 import FocusedStatusBar from "../components/FocusedStatusBar";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 function UploadProfileImage() {
   const navigation = useNavigation();
   const [isSelected, setIsSelected] = useState();
@@ -28,24 +28,15 @@ function UploadProfileImage() {
       quality: 1,
     });
 
-    // console.log(result.uri);
-    // let localUri = result.uri;
-    // let filename = localUri.split("/").pop();
-
-    // let match = /\.(\w+)$/.exec(filename);
-    // let type = match ? `image/${match[1]}` : `image`;
-
-    // let formData = new FormData();
-    // formData.append("photo", { uri: localUri, name: filename, type });
-    // console.log(formData)
-
     if (!result.cancelled) {
+      // console.log("Opening cameraaaaaaaaaaaaaaaaaaaaaa.......................")
       const storage = getStorage();  // the storage
-      const ref_con = ref(storage, 'image.jpg') // how image is addresed inside storage
+      const ref_con = ref(storage, result.name) // how image is addresed inside storage
 
       const img = await fetch(result.uri) // get the image as string
       const bytes = await img.blob() // convert string to bytes
       await uploadBytes(ref_con, bytes)
+      getDownloadURL(ref_con).then(res => console.log(res))
     }
   };
 
@@ -62,11 +53,12 @@ function UploadProfileImage() {
     if (!result.cancelled) {
       // console.log("Opening cameraaaaaaaaaaaaaaaaaaaaaa.......................")
       const storage = getStorage();  // the storage
-      const ref_con = ref(storage, 'image.jpg') // how image is addresed inside storage
+      const ref_con = ref(storage, result.name) // how image is addresed inside storage
 
       const img = await fetch(result.uri) // get the image as string
       const bytes = await img.blob() // convert string to bytes
       await uploadBytes(ref_con, bytes)
+      getDownloadURL(ref_con).then(res => console.log(res))
     }
   };
 
