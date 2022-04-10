@@ -23,7 +23,7 @@ India has around **31 lakh NGOs**, more than double the number of schools. We ar
 
 ### Designer
 
-- Aadyasha Sahoo
+- [Aadyasha Sahoo](mailto:aadygoog99@gmail.com)
 
 ### For Development
 
@@ -31,3 +31,7 @@ India has around **31 lakh NGOs**, more than double the number of schools. We ar
 
     npm start
     
+
+### Design Files
+
+[Figma](https://www.figma.com/file/zpHzvPwIMkvqPImdZsreHT/Jagruti?node-id=0%3A1)
