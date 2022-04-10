@@ -5,7 +5,7 @@ const Card = ({ title, location, image }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.card_container}>
-      <Image source={image} style={styles.img} />
+      <Image source={{ uri: image }} style={styles.img} />
       <View style={styles.details_container}>
         <Text
           style={styles.title}
