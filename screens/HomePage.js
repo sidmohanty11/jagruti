@@ -9,7 +9,6 @@ import React from "react";
 import Card from "../components/Card";
 import FocusedStatusBar from "../components/FocusedStatusBar";
 import { AntDesign } from "@expo/vector-icons";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { Link } from "@react-navigation/native";
 import User from "../components/User";
 
